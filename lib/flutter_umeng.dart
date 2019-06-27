@@ -33,11 +33,12 @@ class FlutterUmeng {
     }
   }
 
-  static Future<bool> registerUserAlias(String userAlias, String aliaType) async {
+  static Future<bool> registerUserAlias(
+      String userAlias, String aliasType) async {
     return await _channel.invokeMethod('registerUserAlias', {
       "userAlias": userAlias,
       "aliasType": aliasType,
-    })
+    });
   }
 
   static Future<String> getRegistrationId() async {
