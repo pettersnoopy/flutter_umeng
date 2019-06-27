@@ -45,4 +45,8 @@ dependencies {
 //    }
     //PushSDK
     implementation 'com.umeng.umsdk:push:5.0.2'
+    //华为Push通道
+    implementation 'com.umeng.umsdk:huawei-basetb:2.6.0.301'
+    implementation 'com.umeng.umsdk:huawei-pushtb:2.6.0.301'
+    implementation 'com.umeng.umsdk:huawei-umengaccs:1.1.3'
 }

@@ -44,4 +44,12 @@ class FlutterUmeng {
   static Future<String> getRegistrationId() async {
     return await _channel.invokeMethod('getRegistrationId');
   }
+
+  static Future<String> getCachedNotificationMsg() async {
+    return await _channel.invokeMethod('getCachedNotificationMsg');
+  }
+
+  static Future<bool> clearCachedNotificationMsg() async {
+    return await _channel.invokeMethod('clearCachedNotificationMsg');
+  }
 }

@@ -16,4 +16,5 @@ public class Consts {
         public static final int NOTIFICATION_CLICK_MSG = 2;
     }
 
+    public static String UMENG_NOTIFICATION_MSG = "flutter_umeng:notification_msg";
 }

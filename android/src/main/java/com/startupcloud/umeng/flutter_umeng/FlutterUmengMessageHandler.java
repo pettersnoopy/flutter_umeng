@@ -25,7 +25,6 @@ public class FlutterUmengMessageHandler extends UmengMessageHandler {
     @Override
     public void dealWithNotificationMessage(Context context, UMessage uMessage) {
         super.dealWithNotificationMessage(context, uMessage);
-        dealWithUMessage(uMessage);
     }
 
     @Override

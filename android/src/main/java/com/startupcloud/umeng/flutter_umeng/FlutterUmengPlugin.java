@@ -1,5 +1,6 @@
 package com.startupcloud.umeng.flutter_umeng;
 
+import android.app.Application;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
@@ -11,6 +12,7 @@ import com.umeng.message.IUmengRegisterCallback;
 import com.umeng.message.PushAgent;
 import com.umeng.message.UTrack;
 
+import org.android.agoo.huawei.HuaWeiRegister;
 import org.json.JSONObject;
 
 import io.flutter.plugin.common.EventChannel;
@@ -42,8 +44,11 @@ public class FlutterUmengPlugin implements MethodCallHandler {
       registerUserAlias(call, result);
     } else if ("getRegistrationId".equals(call.method)) {
       getRegistrationId(call, result);
-    }
-    else {
+    } else if ("getCachedNotificationMsg".equals(call.method)) {
+      getCachedNotificationMsg(call, result);
+    } else if ("clearCachedNotificationMsg".equals(call.method)) {
+      clearCachedNotificationMsg(call, result);
+    } else {
       result.notImplemented();
     }
   }
@@ -56,7 +61,7 @@ public class FlutterUmengPlugin implements MethodCallHandler {
    * @param appChannel
    * @param type
    */
-  public static void registerSdk(Context context, String appKey, String appSecret, String appChannel, int type) {
+  public static void registerSdk(Application context, String appKey, String appSecret, String appChannel, int type) {
     if (TextUtils.isEmpty(appKey)) {
       Log.e(Consts.TAG, "Invalid appKey format.");
       return;
@@ -90,7 +95,7 @@ public class FlutterUmengPlugin implements MethodCallHandler {
         Log.e(Consts.TAG, "Umeng register error: " + s + " " + s1);
       }
     });
-
+    HuaWeiRegister.register(context);
   }
 
   /**
@@ -145,6 +150,23 @@ public class FlutterUmengPlugin implements MethodCallHandler {
       result.success(PushAgent.getInstance(mRegistrar.activity()).getRegistrationId());
     } catch (Exception e) {
       result.success("");
+    }
+  }
+
+  private void getCachedNotificationMsg(MethodCall call, Result result) {
+    try {
+      result.success(PreferenceUtils.getData(mRegistrar.activity(), Consts.UMENG_NOTIFICATION_MSG));
+    } catch (Exception e) {
+      result.success("");
+    }
+  }
+
+  private void clearCachedNotificationMsg(MethodCall call, Result result) {
+    try {
+      PreferenceUtils.clearData(mRegistrar.activity(), Consts.UMENG_NOTIFICATION_MSG);
+      result.success(true);
+    } catch (Exception e) {
+      result.success(false);
     }
   }
 

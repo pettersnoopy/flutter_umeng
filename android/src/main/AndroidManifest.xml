@@ -1,3 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   package="com.startupcloud.umeng.flutter_umeng">
+    <application>
+        <activity android:name="com.startupcloud.umeng.flutter_umeng.SystemPushActivity" android:launchMode="singleTask" android:exported="true" />
+    </application>
 </manifest>
