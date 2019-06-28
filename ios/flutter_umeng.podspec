@@ -17,7 +17,7 @@ A new flutter plugin project.
   s.dependency 'Flutter'
   s.dependency 'UMCCommon'
   s.dependency 'UMCPush'
-  s.dependency 'UMCSecurityPlugins'
+  # s.dependency 'UMCSecurityPlugins'
 
   s.ios.deployment_target = '8.0'
 end
