@@ -23,15 +23,15 @@ public class FlutterUmengMessageHandler extends UmengMessageHandler {
     @Override
     public void dealWithNotificationMessage(Context context, UMessage uMessage) {
         super.dealWithNotificationMessage(context, uMessage);
-        dealWithUMessage(uMessage, true);
+        dealWithUMessage(uMessage);
     }
 
     @Override
     public void dealWithCustomMessage(Context context, final UMessage uMessage) {
-        dealWithUMessage(uMessage, false);
+        dealWithUMessage(uMessage);
     }
 
-    private void dealWithUMessage(final UMessage uMessage, boolean isNotification) {
+    private void dealWithUMessage(final UMessage uMessage) {
         try {
             if (uMessage == null) {
                 return;
@@ -40,18 +40,18 @@ public class FlutterUmengMessageHandler extends UmengMessageHandler {
             if (TextUtils.isEmpty(msgJson)) {
                 return;
             }
-            dealWithUmengMsg(msgJson, isNotification);
+            dealWithUmengMsg(msgJson);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void dealWithUmengMsg(final String msgJson, final boolean isNotification) {
+    private void dealWithUmengMsg(final String msgJson) {
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {
                 if (mCallback != null) {
-                    mCallback.msgArrived(Consts.EventTypeConsts.MSG_EVENT, isNotification ? Consts.SourceTypeConsts.NOTIFICATION_CLICK_MSG : Consts.SourceTypeConsts.CUSTOM_MSG, msgJson);
+                    mCallback.msgArrived(Consts.EventTypeConsts.MSG_EVENT, Consts.SourceTypeConsts.CUSTOM_MSG, msgJson);
                 }
             }
         });
