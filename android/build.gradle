@@ -49,4 +49,7 @@ dependencies {
     implementation 'com.umeng.umsdk:huawei-basetb:2.6.0.301'
     implementation 'com.umeng.umsdk:huawei-pushtb:2.6.0.301'
     implementation 'com.umeng.umsdk:huawei-umengaccs:1.1.3'
+    //小米Push通道
+    implementation 'com.umeng.umsdk:xiaomi-push:3.6.9'
+    implementation 'com.umeng.umsdk:xiaomi-umengaccs:1.0.9'
 }

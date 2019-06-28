@@ -13,6 +13,7 @@ import com.umeng.message.PushAgent;
 import com.umeng.message.UTrack;
 
 import org.android.agoo.huawei.HuaWeiRegister;
+import org.android.agoo.xiaomi.MiPushRegistar;
 import org.json.JSONObject;
 
 import io.flutter.plugin.common.EventChannel;
@@ -95,7 +96,14 @@ public class FlutterUmengPlugin implements MethodCallHandler {
         Log.e(Consts.TAG, "Umeng register error: " + s + " " + s1);
       }
     });
-    HuaWeiRegister.register(context);
+  }
+
+  public static void registerHuaWei(Application application) {
+    HuaWeiRegister.register(application);
+  }
+
+  public static void registerMiPush(Context context, String appId, String appKey) {
+    MiPushRegistar.register(context, appId, appKey);
   }
 
   /**
