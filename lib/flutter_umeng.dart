@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 
 import 'package:flutter/services.dart';
 
@@ -18,11 +19,23 @@ class FlutterUmeng {
   //   });
   // }
 
-  static void registerUmengListener(Function listener) {
-    _channel.invokeMethod("registerMsgHandler");
-    if (_streamSubscription == null) {
-      _streamSubscription =
-          _eventChannel.receiveBroadcastStream().listen(listener);
+  static void registerUmengListener(
+      String appKey, Function listener, Function onError) {
+    if (defaultTargetPlatform == TargetPlatform.iOS) {
+      _eventChannel.receiveBroadcastStream({'appKey': appKey}).listen(
+        listener,
+        onError: onError,
+      );
+      return;
+    }
+    if (defaultTargetPlatform == TargetPlatform.android) {
+      _channel.invokeMethod("registerMsgHandler");
+      if (_streamSubscription == null) {
+        _streamSubscription = _eventChannel.receiveBroadcastStream().listen(
+              listener,
+              onError: onError,
+            );
+      }
     }
   }
 
