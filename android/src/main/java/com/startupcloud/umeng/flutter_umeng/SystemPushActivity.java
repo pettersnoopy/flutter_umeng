@@ -42,8 +42,7 @@ public class SystemPushActivity extends UmengNotifyClickActivity {
       JSONObject jsonObject = new JSONObject(body).getJSONObject("body");
       final String custom = jsonObject.getString("custom");
       final Context context = SystemPushActivity.this.getApplicationContext();
-      PreferenceUtils.saveData(context, Consts.UMENG_NOTIFICATION_MSG, custom);
-      Log.i(Consts.TAG, "Offline push msg cached: custom");
+      PreferenceUtils.saveData(context, Consts.UMENG_NOTIFICATION_MSG, new FlutterUmengPlugin.MsgInfo(Consts.EventTypeConsts.MSG_EVENT, Consts.SourceTypeConsts.NOTIFICATION_CLICK_MSG, custom).toString());
       post(new Runnable() {
         @Override
         public void run() {

@@ -21,7 +21,6 @@
             result(userInfo);
         }
     } else if([@"clearCachedNotificationMsg" isEqualToString:call.method]) {
-        NSLog(@"remove push umeng info");
         [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"PushUserInfoKey"];
         result(@(YES));
     } else if([@"registerUserAlias" isEqualToString:call.method]) {
@@ -30,7 +29,6 @@
         //绑定别名
         [UMessage addAlias:userAlias type:aliasType response:^(id  _Nonnull responseObject, NSError * _Nonnull error) {
             if (error != nil) {
-                NSLog(@"umeng push add alias error");
                 result(@(NO));
             }
             result(@(YES));

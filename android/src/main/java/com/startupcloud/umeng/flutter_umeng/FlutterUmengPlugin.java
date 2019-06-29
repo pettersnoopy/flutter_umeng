@@ -64,22 +64,22 @@ public class FlutterUmengPlugin implements MethodCallHandler {
    */
   public static void registerSdk(Application context, String appKey, String appSecret, String appChannel, int type) {
     if (TextUtils.isEmpty(appKey)) {
-      Log.e(Consts.TAG, "Invalid appKey format.");
+      LogUtils.e(Consts.TAG, "Invalid appKey format.");
       return;
     }
 
     if (TextUtils.isEmpty(appSecret)) {
-      Log.e(Consts.TAG, "Invalid appSecret format.");
+      LogUtils.e(Consts.TAG, "Invalid appSecret format.");
       return;
     }
 
     if (TextUtils.isEmpty(appChannel)) {
-      Log.i(Consts.TAG, "Empty appChannel, using default channel name [base]");
+      LogUtils.i(Consts.TAG, "Empty appChannel, using default channel name [base]");
       appChannel = "base";
     }
 
     if (type <= 0) {
-      Log.i(Consts.TAG, "Empty deviceType, using default deviceType DEVICE_TYPE_PHONE");
+      LogUtils.i(Consts.TAG, "Empty deviceType, using default deviceType DEVICE_TYPE_PHONE");
       type = UMConfigure.DEVICE_TYPE_PHONE;
     }
 
@@ -88,12 +88,12 @@ public class FlutterUmengPlugin implements MethodCallHandler {
     agent.register(new IUmengRegisterCallback() {
       @Override
       public void onSuccess(String s) {
-        Log.i(Consts.TAG, "Umeng register success.");
+        LogUtils.i(Consts.TAG, "Umeng register success.");
       }
 
       @Override
       public void onFailure(String s, String s1) {
-        Log.e(Consts.TAG, "Umeng register error: " + s + " " + s1);
+        LogUtils.e(Consts.TAG, "Umeng register error: " + s + " " + s1);
       }
     });
   }
@@ -115,7 +115,7 @@ public class FlutterUmengPlugin implements MethodCallHandler {
     new EventChannel(mRegistrar.messenger(), "flutter_umeng_event").setStreamHandler(new EventChannel.StreamHandler() {
       @Override
       public void onListen(Object o, final EventChannel.EventSink eventSink) {
-        Log.i(Consts.TAG, "Umeng event channel onListened.");
+        LogUtils.i(Consts.TAG, "Umeng event channel onListened.");
         PushAgent.getInstance(mRegistrar.activity()).setMessageHandler(new FlutterUmengMessageHandler(new UmengMsgArrivedCallback() {
           @Override
           public void msgArrived(int eventType, int sourceType, final String msgJson) {
@@ -132,7 +132,7 @@ public class FlutterUmengPlugin implements MethodCallHandler {
 
       @Override
       public void onCancel(Object o) {
-        Log.i(Consts.TAG, "Umeng event channel onCanceled.");
+        LogUtils.i(Consts.TAG, "Umeng event channel onCanceled.");
       }
     });
   }
@@ -144,7 +144,7 @@ public class FlutterUmengPlugin implements MethodCallHandler {
       PushAgent.getInstance(mRegistrar.activity()).addAlias(displayId, aliasType, new UTrack.ICallBack() {
         @Override
         public void onMessage(boolean b, String s) {
-          Log.i(Consts.TAG, "addAlias: " + s);
+          LogUtils.i(Consts.TAG, "addAlias: " + s);
         }
       });
       result.success(true);
@@ -178,7 +178,7 @@ public class FlutterUmengPlugin implements MethodCallHandler {
     }
   }
 
-  private class MsgInfo {
+  public static class MsgInfo {
     public int eventType;
     public int msgSourceType;
     public String msgJson;
