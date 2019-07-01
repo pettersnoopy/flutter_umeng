@@ -83,8 +83,9 @@ public class FlutterUmengPlugin implements MethodCallHandler {
       type = UMConfigure.DEVICE_TYPE_PHONE;
     }
 
-    UMConfigure.init(context, appKey, appChannel, type, appSecret);
     UMConfigure.setLogEnabled(log);
+    UMConfigure.init(context, appKey, appChannel, type, appSecret);
+
     PushAgent agent = PushAgent.getInstance(context);
     agent.register(new IUmengRegisterCallback() {
       @Override
