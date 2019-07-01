@@ -62,7 +62,7 @@ public class FlutterUmengPlugin implements MethodCallHandler {
    * @param appChannel
    * @param type
    */
-  public static void registerSdk(Application context, String appKey, String appSecret, String appChannel, int type) {
+  public static void registerSdk(Application context, String appKey, String appSecret, String appChannel, int type, boolean log) {
     if (TextUtils.isEmpty(appKey)) {
       LogUtils.e(Consts.TAG, "Invalid appKey format.");
       return;
@@ -84,6 +84,7 @@ public class FlutterUmengPlugin implements MethodCallHandler {
     }
 
     UMConfigure.init(context, appKey, appChannel, type, appSecret);
+    UMConfigure.setLogEnabled(log);
     PushAgent agent = PushAgent.getInstance(context);
     agent.register(new IUmengRegisterCallback() {
       @Override
