@@ -46,7 +46,14 @@ public class SystemPushActivity extends UmengNotifyClickActivity {
       post(new Runnable() {
         @Override
         public void run() {
-          Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("chicken://main_from_push"));
+          String scheme = "umeng://flutter_umeng";
+          try {
+            JSONObject object = new JSONObject(custom);
+            scheme = object.optString("scheme", "umeng://flutter_umeng");
+          } catch (Exception e) {
+
+          }
+          Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(scheme));
           intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
           context.startActivity(intent);
           finish();
